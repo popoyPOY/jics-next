@@ -37,11 +37,12 @@ type AddPlan = {
 }
 
 
+
 const session = cookies().get("session")?.value
 export async function getUsers(): Promise<Account[]> {
 
     const response = await (await fetch(`${PB_URL}/api/collections/customer/records?expand=plan`, {
-        cache: "no-store",
+        cache: "no-cache",
         headers: {
             'Authorization': `Bearer ${session}`
         }
@@ -81,7 +82,7 @@ export async function removePlan(id: string) {
         return false
     }
     else {
-        redirect("/dashboard/settings")
+        redirect("settings")
     }
 }
 
@@ -103,9 +104,32 @@ export async function addPlan(data: AddPlan) {
         return false
     }
     else {
-        redirect("/dashboard/settings")
+        redirect("settings")
     }
 }
+
+export async function editPlan(data: AddPlan, id: string) {
+
+    const res = await fetch(`${PB_URL}/api/collections/plan/records/${id}`,
+        {
+            method: "PATCH",
+            cache:"no-store",
+            headers: {
+                'Authorization': `Bearer ${session}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+    )
+
+    if (!res.ok) {
+        return false
+    }
+    else {
+        redirect("settings")
+    }
+}
+
 
 export async function getTotal() {
     const res = await fetch(`${PB_URL}/api/collections/customer/records?expand=plan`,

@@ -18,8 +18,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import PlanForm from "./plan-form"
 
+import { Plan } from "../../columns"
   
-export default function ViewPlan() {
+export default function ViewPlan(plan: Plan) {
     return (
         <Dialog>
         <DialogTrigger asChild>
@@ -34,14 +35,14 @@ export default function ViewPlan() {
             </DialogHeader>
             <Card>
             <CardHeader>
-                <CardTitle>999 Plan</CardTitle>
+                <CardTitle>{plan.speed} Plan</CardTitle>
                 <CardDescription></CardDescription>
                 <CardDescription>
-                    Plan Price: 999
+                    Plan Price: {plan.price}
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <PlanForm/>
+                <PlanForm {...plan}/>
             </CardContent>
             <CardFooter className="flex flex-col">
                 <CardDescription>You can update your customer using this feature</CardDescription>

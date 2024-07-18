@@ -84,6 +84,7 @@ export const planColumns: ColumnDef<Plan>[]= [
     cell: ({ row } ) => {
       const column = row.original;
 
+
       return (
         <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -99,7 +100,7 @@ export const planColumns: ColumnDef<Plan>[]= [
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <ViewPlan/>
+            <ViewPlan {...column}/>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

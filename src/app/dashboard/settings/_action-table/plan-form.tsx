@@ -17,6 +17,7 @@ import {
   } from "@/components/ui/form"
 
 import { Textarea } from "@/components/ui/textarea"
+import { editPlan } from "@/actions/action"
 
 
 const formSchema = z.object({
@@ -26,23 +27,27 @@ const formSchema = z.object({
     description: z.string().min(5, {
         message: "Description is at least 5 characters."
     }),
-    price: z.string()
+    price: z.coerce.number(),
+    speed: z.string()
 })
 
+import { Plan } from "../../columns"
 
-export default function PlanForm() {
+export default function PlanForm(plan: Plan) {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            plan_name: "",
-            description: "",
-            price: ""
+            plan_name: plan.plan_name,
+            description: plan.description,
+            price: plan.price,
+            speed: plan.speed
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const edit = await editPlan(values, plan.id)
+        console.log(edit)
     }
 
     return (
@@ -97,6 +102,23 @@ export default function PlanForm() {
                                     </FormControl>
                                     <FormDescription>
                                         Please enter plan price.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField 
+                            control={form.control}
+                            name="speed"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Plan speed</FormLabel>
+                                    <FormControl>
+                                        <Input type="text" placeholder="40" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Please enter plan speed.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
