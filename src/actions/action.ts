@@ -165,8 +165,7 @@ export async function addCustomer(data : Customer) {
         }
     )
 
-    
-    console.log(await res.json())
+
 
     if (!res.ok) {
         return false
@@ -192,8 +191,7 @@ export async function deactivateCustomer(data : Deactivate) {
         }
     )
 
-    
-    console.log(await res.json())
+
 
     if (!res.ok) {
         return false
