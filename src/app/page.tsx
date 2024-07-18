@@ -6,23 +6,6 @@ import { getTotal } from "@/actions/action";
 import Title from "@/components/static/title";
 import { getPlan } from "@/actions/action";
 
-const plan = [
-  {
-    price: "999",
-    description: "A great plan for streaming, video calling, school, and gaming!",
-    speed: "40"
-  },
-  {
-    price: "1199",
-    description: "Great for gaming and long binge-streaming shows in HD.",
-    speed: "60"
-  },
-  {
-    price: "1499",
-    description: "Design for the great, for families, social media streaming.",
-    speed: "100"
-  }
-];
 
 export default async function Home() {
   const total = await getTotal();
