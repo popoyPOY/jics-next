@@ -13,10 +13,6 @@ export default async function Dashboard() {
 
 
 
-    const activeUser = total.items.filter(user => user.active === true)
-    const unActiveUser = total.items.filter(user => user.active === false)
-
-
     const headerInformation = [
         {
             title: "Total Users",
@@ -24,11 +20,11 @@ export default async function Dashboard() {
         },
         {
             title: "Active Users",
-            content: activeUser.length
+            content: total.items.filter(user => user.active === true)
         },
         {
             title: "Inactive Users",
-            content: unActiveUser.length
+            content: total.items.filter(user => user.active === false)
         },
     ];
 
@@ -45,7 +41,7 @@ export default async function Dashboard() {
             <section className="">
                 <div className="flex justify-center">
                     {
-                        headerInformation.map((values, key) => {
+                        headerInformation.map((values: any, key) => {
                             return (
                                     <HeaderCard key={key} {...values}/>
                             )
