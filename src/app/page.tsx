@@ -2,6 +2,9 @@ import Image from "next/image";
 import NavBar from "@/components/static/NavBar";
 import { Circle } from "lucide-react";
 import PricingCard from "@/components/static/pricing-card";
+import { getTotal } from "@/actions/action";
+import Title from "@/components/static/title";
+import { getPlan } from "@/actions/action";
 
 const plan = [
   {
@@ -21,17 +24,15 @@ const plan = [
   }
 ];
 
-export default function Home() {
+export default async function Home() {
+  const total = await getTotal();
+  const plan = await getPlan();
   return (
     <main className="flex min-h-[100vh] grow flex-col items-center justify-between p-24">
-
+      
       <div>
-
           <div className="flex">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl transition-opacity">
-            JS1/JICS Wireless Internet Provider
-            </h1>
-            <Circle className="my-6 fill-amber-400 border-amber-400" size={19} color="amber"/>
+            <Title/>
           </div>
 
           <section className="flex flex-row justify-center">
@@ -41,19 +42,25 @@ export default function Home() {
             <Circle className="my-4 fill-amber-400 border-amber-400" size={5} color="amber"/>
           </section>
 
+          <section className="flex justify-center">
+          <p className="leading-1 [&:not(:first-child)]:mt-6 text-sm text-gray-300">
+            {total.totalItems}+ customer 
+          </p>
+          </section>
+
           <section className="my-10">
           <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 flex">
             What's the pricing?
           </h2>
           </section>
 
-          <div className="flex">
+          <div className="flex justify-center flex-row flex-wrap ">
             {
               plan.map((values, key) => {
                 return (
-                  <>
-                  <PricingCard price={values.price} speed={values.speed} description={values.description}/>
-                  </>
+                  <div className="">
+                    <PricingCard key={key} {...values}/>
+                  </div>
                 )
               })
             }

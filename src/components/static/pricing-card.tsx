@@ -9,17 +9,14 @@ import {
 import { buttonVariants } from "@/components/ui/button"
 import { CreditCard } from "lucide-react";
 import Link from "next/link";
+import { Plan } from "@/app/dashboard/columns";
 
-type Plan =  {
-    price: string,
-    description: string,
-    speed: string
-};
+
 
 export default function PricingCard(plan: Plan, premium: string | null) {
     return (
         <>
-        <Card className="w-[300px] mx-3">
+        <Card className="w-[300px] h-[300px] mx-3 my-3">
             <CardHeader>
                 <CardTitle className="text-xl text-amber-300">₱ {plan.price}</CardTitle>
                 <CardDescription>{plan.speed} Mbps plan</CardDescription>

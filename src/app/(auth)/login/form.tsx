@@ -13,6 +13,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
+
 import {
     Form,
     FormControl,
@@ -23,7 +26,7 @@ import {
     FormMessage,
   } from "@/components/ui/form"
 
-
+import { SignIn } from "@/auth/auth"
 
 const formSchema = z.object({
     email: z.string().min(10, {
@@ -37,6 +40,7 @@ const formSchema = z.object({
 })
 
 export default function LoginForm() {
+    const { toast } = useToast()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -46,12 +50,21 @@ export default function LoginForm() {
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const authData = await SignIn({...values})
+
+        if(authData === "Failed to authenticate.") {
+            toast({
+                title:"Something went wrong",
+                description: authData
+            })
+        }
     }
 
     return(
         <>
         <div className="flex justify-center items-center m-[10vh]">
+            <Toaster/>
             <Card className="w-[350px]">
             <CardHeader>
                 <CardTitle className="mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0">
