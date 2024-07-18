@@ -11,8 +11,6 @@ export default async function Dashboard() {
 
     const total = await getTotal();
 
-
-
     const headerInformation = [
         {
             title: "Total Users",
@@ -20,11 +18,11 @@ export default async function Dashboard() {
         },
         {
             title: "Active Users",
-            content: total.items.filter(user => user.active === true)
+            content: total.items.filter(user => user.active === true).length
         },
         {
             title: "Inactive Users",
-            content: total.items.filter(user => user.active === false)
+            content: total.items.filter(user => user.active === false).length
         },
     ];
 
@@ -41,7 +39,7 @@ export default async function Dashboard() {
             <section className="">
                 <div className="flex justify-center">
                     {
-                        headerInformation.map((values: any, key) => {
+                        headerInformation.map((values, key) => {
                             return (
                                     <HeaderCard key={key} {...values}/>
                             )

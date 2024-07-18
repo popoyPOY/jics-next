@@ -37,7 +37,8 @@ type AddPlan = {
 }
 
 function getSession() {
-    return cookies().get("session")?.value
+    const session = cookies().get("session")?.value
+    return session
 } 
 
 
@@ -46,7 +47,7 @@ export async function getUsers(): Promise<Account[]> {
     const response = await (await fetch(`${PB_URL}/api/collections/customer/records?expand=plan`, {
         cache: "no-cache",
         headers: {
-            'Authorization': `Bearer ${getSession}`
+            'Authorization': `Bearer ${getSession()}`
         }
     })).json()
     
@@ -59,7 +60,7 @@ export async function getPlan(): Promise<Plan[]> {
     const response = await (await fetch(`${PB_URL}/api/collections/plan/records`, {
         cache: "no-store",
         headers: {
-            'Authorization': `Bearer ${getSession}`
+            'Authorization': `Bearer ${getSession()}`
         }
     })).json()
 
@@ -74,7 +75,7 @@ export async function removePlan(id: string) {
             method: "DELETE",
             cache:"no-store",
             headers: {
-                'Authorization': `Bearer ${getSession}`,
+                'Authorization': `Bearer ${getSession()}`,
                 'Content-Type': 'application/json'
             },
         }
@@ -95,7 +96,7 @@ export async function addPlan(data: AddPlan) {
             method: "POST",
             cache:"no-store",
             headers: {
-                'Authorization': `Bearer ${getSession}`,
+                'Authorization': `Bearer ${getSession()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -117,7 +118,7 @@ export async function editPlan(data: AddPlan, id: string) {
             method: "PATCH",
             cache:"no-store",
             headers: {
-                'Authorization': `Bearer ${getSession}`,
+                'Authorization': `Bearer ${getSession()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -138,7 +139,7 @@ export async function getTotal() {
         {
             cache:"reload",
             headers: {
-                'Authorization': `Bearer ${getSession}`
+                'Authorization': `Bearer ${getSession()}`
             }
         }
     )
@@ -157,7 +158,7 @@ export async function addCustomer(data : Customer) {
             method: "POST",
             cache:"no-store",
             headers: {
-                'Authorization': `Bearer ${getSession}`,
+                'Authorization': `Bearer ${getSession()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -184,7 +185,7 @@ export async function deactivateCustomer(data : Deactivate) {
             method: "PATCH",
             cache:"no-store",
             headers: {
-                'Authorization': `Bearer ${getSession}`,
+                'Authorization': `Bearer ${getSession()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
