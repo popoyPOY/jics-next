@@ -58,9 +58,9 @@ export default async function Home() {
             {
               plan.map((values, key) => {
                 return (
-                  <div className="">
+                  <>
                     <PricingCard key={key} {...values}/>
-                  </div>
+                  </>
                 )
               })
             }
