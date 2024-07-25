@@ -1,9 +1,20 @@
 "use client"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
 import { addPlan } from "@/actions/action"
 
 import {
@@ -18,65 +29,101 @@ import {
 
 import { Textarea } from "@/components/ui/textarea"
 
-
 const formSchema = z.object({
-    plan_name: z.string().min(2, {
-        message: "Plan name is at least 2 characters.",
+    name: z.string().min(2, {
+        message: "Full name is required.",
     }),
     description: z.string().min(5, {
         message: "Description is at least 5 characters."
     }),
-    price: z.coerce.number(),
-    speed: z.string(),
+    phone: z.string().min(5, {
+        message: "Phone number is required."
+    }),
+    email: z.string().email({
+        message: "Email is required."
+    }),
 })
 
-
-export default function AddForm() {
+function ContactForm() {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            plan_name: "",
+            name: "",
             description: "",
-            price: 0,
-            speed: ""
+            phone: "",
+            email: "",
         }
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const add = await addPlan(values)
+
     }
+    
 
     return (
-        <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+        <>
+        <Form {...form} >
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                         <FormField 
                                     control={form.control}
-                                    name="plan_name"
+                                    name="name"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Plan name</FormLabel>
+                                            <FormLabel>Full name</FormLabel>
                                             <FormControl>
-                                                <Input type="text" placeholder="Fiber 999" {...field} />
+                                                <Input type="text" placeholder="Jayoma" {...field} />
                                             </FormControl>
                                             <FormDescription>
-                                                Please enter new plan name.
+                                                Please enter your full name.
                                             </FormDescription>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                         />
 
+                        <FormField 
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email Address</FormLabel>
+                                    <FormControl>
+                                        <Input type="email" placeholder="juandelacruz@gmail.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField 
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Phone Number</FormLabel>
+                                    <FormControl>
+                                        <Input type="number" placeholder="0949471232" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Please enter phone number.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        
 
                         <FormField 
                             control={form.control}
                             name="description"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Plan description</FormLabel>
+                                    <FormLabel>Message</FormLabel>
                                     <FormControl>
                                         <Textarea
-                                        placeholder="Description of what this fiber plan is about"
+                                        placeholder="Message Us"
                                         {...field}
                                         />
                                     </FormControl>
@@ -87,43 +134,44 @@ export default function AddForm() {
                                 </FormItem>
                             )}
                         />
-
-                        <FormField 
-                            control={form.control}
-                            name="price"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Plan price</FormLabel>
-                                    <FormControl>
-                                        <Input type="number" placeholder="1500" {...field} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Please enter plan price.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField 
-                            control={form.control}
-                            name="speed"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Plan speed</FormLabel>
-                                    <FormControl>
-                                        <Input type="text" placeholder="40" {...field} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Please enter plan speed.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
                         
-                        <Button className="my-2" type="submit">Add new plan</Button>
+                        <Button className="my-2" type="submit">Submit</Button>
                     </form>
         </Form>
+        </>
     )
 }
+
+function ContactCard() {
+    return (
+        <>
+        <Card className="w-[60vh]">
+            <CardHeader>
+                <CardTitle>Inquire about the services.</CardTitle>
+                <CardDescription>Inquire here</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ContactForm/>
+            </CardContent>
+            <CardFooter>
+            </CardFooter>
+        </Card>
+
+        </>
+    )
+}
+
+export default function InquireForm() {
+    return (
+        <div className="items-center">
+            <ContactCard/>
+        </div>
+    );
+}
+
+
+
+
+
+
+

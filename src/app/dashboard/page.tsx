@@ -1,9 +1,9 @@
 import HeaderCard from "@/components/static/header-card"
-import { Chart } from "@/components/static/pie-chart"
 import { Payment, columns, Account, accountcolumns } from "./columns"
 import { DataTable } from "./data-table"
 import { getUsers, getTotal } from "@/actions/action"
 import AddCustomer from "./add-customer"
+
 
 export default async function Dashboard() {
 
@@ -51,16 +51,11 @@ export default async function Dashboard() {
             <section>
                 <div className="flex justify-center my-10">
                     <div>
-                        <Chart/>
-                    </div>
-                    <div>
                         <div>
                             <AddCustomer/>
                         </div>
                         <DataTable columns={accountcolumns} data={users} filter="email" />
-
                     </div>
-
                 </div>
             </section>
 

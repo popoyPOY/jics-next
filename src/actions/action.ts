@@ -178,7 +178,6 @@ export async function addCustomer(data : Customer) {
 
 export async function deactivateCustomer(data : Deactivate) {
 
-
     const res = await fetch(`${PB_URL}/api/collections/customer/records/${data.id}`,
         {
             method: "PATCH",
@@ -190,8 +189,6 @@ export async function deactivateCustomer(data : Deactivate) {
             body: JSON.stringify(data)
         }
     )
-
-
 
     if (!res.ok) {
         return false

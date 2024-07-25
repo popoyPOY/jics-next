@@ -20,14 +20,14 @@ export default async function PlanCard() {
 
     return (
         <>
-        <div className="border w-screen flex rounded-lg flex-col">
+        <div className="border flex rounded-lg flex-col">
             <div className="mx-5 my-2">
-            <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-                Plans
-            </h2>
-            <p className="leading-7 [&:not(:first-child)]:mt-1 text-gray-400">
-                You can edit your Plan list here
-            </p>
+                <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+                    Plans
+                </h2>
+                <p className="leading-7 [&:not(:first-child)]:mt-1 text-gray-400">
+                    You can edit your Plan list here
+                </p>
             </div>
 
             <Card className="m-5">

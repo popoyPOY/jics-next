@@ -24,7 +24,7 @@ type Data = {
   plan : string,
   subscribers : number,
   fill: string
-}[]
+};
 
 
 
@@ -47,8 +47,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
-
-export function Chart() {
+export function Chart(config: ChartConfig, data: Data[]) {
 
   const totalSubscribers = 100;
 
@@ -66,7 +65,7 @@ export function Chart() {
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={config}
           className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
@@ -75,7 +74,7 @@ export function Chart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-              data={chartData}
+              data={data}
               dataKey="subscribers"
               nameKey="plan"
               innerRadius={60}

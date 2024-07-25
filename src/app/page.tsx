@@ -5,16 +5,19 @@ import PricingCard from "@/components/static/pricing-card";
 import { getTotal } from "@/actions/action";
 import Title from "@/components/static/title";
 import { getPlan } from "@/actions/action";
+import InquireForm from "@/components/static/inquire";
+import Footer from "@/components/static/footer";
 
 
 export default async function Home() {
   const total = await getTotal();
   const plan = await getPlan();
   return (
+    <>
     <main className="flex min-h-[100vh] grow flex-col items-center justify-between p-24">
       
       <div>
-          <div className="flex">
+          <div className="flex justify-center">
             <Title/>
           </div>
 
@@ -41,16 +44,28 @@ export default async function Home() {
             {
               plan.map((values, key) => {
                 return (
-                  <>
                     <PricingCard key={key} {...values}/>
-                  </>
                 )
               })
             }
           </div>
+        
+          <section className="my-10">
+          <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 flex">
+            Inquire about the service
+          </h2>
+          </section>
 
+          <section className="flex justify-center">
+            <InquireForm/>
+          </section>
       </div>
 
     </main>
+    <div className="p-24">
+      <Footer/>
+    </div>
+
+    </>
   );
 }
