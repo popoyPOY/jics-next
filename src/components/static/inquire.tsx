@@ -28,6 +28,7 @@ import {
   } from "@/components/ui/form"
 
 import { Textarea } from "@/components/ui/textarea"
+import { postInquiry } from "@/actions/action"
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -45,6 +46,7 @@ const formSchema = z.object({
 })
 
 function ContactForm() {
+    const { toast } = useToast()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -57,13 +59,27 @@ function ContactForm() {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        const res = await postInquiry(values)
 
+        if(res) {
+            toast({
+                title: "Inquiry Sucessful",
+                description: "Please wait 3-5 business days"
+            })
+        }
+        else {
+            toast({
+                title: "Inquiry Unsuccessful",
+                description: "Something went wrong"
+            })
+        }
     }
     
 
     return (
         <>
         <Form {...form} >
+            <Toaster/>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                         <FormField 
                                     control={form.control}
@@ -72,7 +88,7 @@ function ContactForm() {
                                         <FormItem>
                                             <FormLabel>Full name</FormLabel>
                                             <FormControl>
-                                                <Input type="text" placeholder="Jayoma" {...field} />
+                                                <Input type="text" placeholder="Juan Dela Cruz" {...field} />
                                             </FormControl>
                                             <FormDescription>
                                                 Please enter your full name.

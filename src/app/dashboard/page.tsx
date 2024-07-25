@@ -3,6 +3,8 @@ import { Payment, columns, Account, accountcolumns } from "./columns"
 import { DataTable } from "./data-table"
 import { getUsers, getTotal } from "@/actions/action"
 import AddCustomer from "./add-customer"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import InquiryTable from "./inquiry-table"
 
 
 export default async function Dashboard() {
@@ -48,15 +50,26 @@ export default async function Dashboard() {
                 </div>
             </section>
 
-            <section>
-                <div className="flex justify-center my-10">
-                    <div>
+            <section className="flex justify-center my-10">
+                <Tabs defaultValue="user" className="">
+                <TabsList>
+                    <TabsTrigger value="user">Users</TabsTrigger>
+                    <TabsTrigger value="inquiry">Inquiry</TabsTrigger>
+                </TabsList>
+                <TabsContent value="user">
+                    <div className="flex justify-center my-10">
                         <div>
-                            <AddCustomer/>
+                            <div>
+                                <AddCustomer/>
+                            </div>
+                            <DataTable columns={accountcolumns} data={users} filter="email" />
                         </div>
-                        <DataTable columns={accountcolumns} data={users} filter="email" />
                     </div>
-                </div>
+                </TabsContent>
+                <TabsContent value="inquiry">
+                    <InquiryTable/>
+                </TabsContent>
+            </Tabs>
             </section>
 
             

@@ -2,7 +2,7 @@ import Image from "next/image";
 import NavBar from "@/components/static/NavBar";
 import { Circle } from "lucide-react";
 import PricingCard from "@/components/static/pricing-card";
-import { getTotal } from "@/actions/action";
+import { total } from "@/actions/action";
 import Title from "@/components/static/title";
 import { getPlan } from "@/actions/action";
 import InquireForm from "@/components/static/inquire";
@@ -10,7 +10,7 @@ import Footer from "@/components/static/footer";
 
 
 export default async function Home() {
-  const total = await getTotal();
+  const totalUser = await total();
   const plan = await getPlan();
   return (
     <>
@@ -29,8 +29,8 @@ export default async function Home() {
           </section>
 
           <section className="flex justify-center">
-          <p className="leading-1 [&:not(:first-child)]:mt-6 text-sm text-gray-300">
-            {total.totalItems}+ customer 
+          <p className="leading-1 [&:not(:first-child)]:mt-6 text-sm ">
+            {totalUser}+ customer 
           </p>
           </section>
 

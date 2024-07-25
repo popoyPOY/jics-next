@@ -29,6 +29,13 @@ type Deactivate = {
     active: boolean
 }
 
+type Inquiry = {
+    name: string,
+    description: string,
+    phone: string,
+    email: string
+}
+
 type AddPlan = {
     plan_name: string,
     price: number,
@@ -196,4 +203,50 @@ export async function deactivateCustomer(data : Deactivate) {
     else {
         redirect("dashboard")
     }
+}
+
+export async function getInquiry() {
+    const res = await fetch(`${PB_URL}/api/collections/inquiry/records`,
+        {
+            cache:"reload",
+            headers: {
+                'Authorization': `Bearer ${getSession()}`
+            }
+        }
+    )
+    const t = await res.json()
+
+    return t?.items
+}
+
+export async function postInquiry(data : Inquiry) {
+
+    const res = await fetch(`${PB_URL}/api/collections/inquiry/records`,
+        {
+            method: "POST",
+            cache:"no-store",
+            headers: {
+                'Authorization': `Bearer ${getSession()}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+    )
+
+    if (!res.ok) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+export async function total() {
+    const res = await fetch(`${PB_URL}/api/collections/total/records`,{
+        cache: 'no-store'
+    });
+
+    const t = await res.json()
+
+    return t?.totalItems;
 }

@@ -38,6 +38,13 @@ export type Plan = {
   speed: string
 }
 
+type Inquiry = {
+  name: string,
+  description: string,
+  phone: string,
+  email: string,
+}
+
 export type Account = {
     address: string,
     collectionId: string,
@@ -169,6 +176,25 @@ export const accountcolumns: ColumnDef<Account>[] = [
         }
     }
 ]
+
+export const InquiryColumn: ColumnDef<Inquiry>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name'
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email'
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description'
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone'
+  }
+];
 
 
  

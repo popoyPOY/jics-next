@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <ThemeProvider
           attribute="class"
-          enableSystem
+          defaultTheme="dark"
           disableTransitionOnChange  
         >
         <NavBar/>
