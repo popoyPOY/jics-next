@@ -134,6 +134,10 @@ export const accountcolumns: ColumnDef<Account>[] = [
         header: "Plan"
     },
     {
+      accessorKey:"id"
+    },
+
+    {
         accessorKey: "active",
         header: "Active",
         cell: ({ row }) => {

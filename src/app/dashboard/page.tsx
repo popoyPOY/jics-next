@@ -30,11 +30,11 @@ export default async function Dashboard() {
 
     return (
         <>
-        <div className="">
-            <section className="flex justify-first mx-48 my-10">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl">
-                Dashboard
-            </h1>
+        <div className="flex flex-col">
+            <section className="flex justify-center mx-48 my-10">
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl">
+                    Dashboard
+                </h1>
             </section>
 
             {/** dashboard header */}
@@ -49,31 +49,30 @@ export default async function Dashboard() {
                     }
                 </div>
             </section>
-
-            <section className="flex justify-center my-10">
-                <Tabs defaultValue="user" className="">
-                <TabsList>
-                    <TabsTrigger value="user">Users</TabsTrigger>
-                    <TabsTrigger value="inquiry">Inquiry</TabsTrigger>
-                </TabsList>
-                <TabsContent value="user">
-                    <div className="flex justify-center my-10">
-                        <div>
-                            <div>
-                                <AddCustomer/>
+            
+            <div className="items-center xl:flex justify-center my-10 sm:flex">
+                    <Tabs defaultValue="user" className="">
+                        <TabsList className="">
+                            <TabsTrigger value="user">Users</TabsTrigger>
+                            <TabsTrigger value="inquiry">Inquiry</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="user">
+                            <div className="items-center">
+                                <div>
+                                    <div>
+                                        <AddCustomer/>
+                                    </div>
+                                    <DataTable columns={accountcolumns} data={users} filter="email" />
+                                </div>
                             </div>
-                            <DataTable columns={accountcolumns} data={users} filter="email" />
-                        </div>
-                    </div>
-                </TabsContent>
-                <TabsContent value="inquiry">
-                    <InquiryTable/>
-                </TabsContent>
-            </Tabs>
-            </section>
+                        </TabsContent>
+                        <TabsContent value="inquiry">
+                            <InquiryTable/>
+                        </TabsContent>
+                    </Tabs>
+            </div>
 
             
-
         </div>
         </>
     )

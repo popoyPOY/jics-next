@@ -19,9 +19,9 @@ type Customer = {
     name: string,
     address: string,
     email: string,
-    phone: string,
-    plan: string,
-    active: boolean,
+    phone?: string | null,
+    plan?: string | null,
+    active?: boolean | null,
 }
 
 type Deactivate = {
@@ -163,6 +163,31 @@ export async function addCustomer(data : Customer) {
     const res = await fetch(`${PB_URL}/api/collections/customer/records`,
         {
             method: "POST",
+            cache:"no-store",
+            headers: {
+                'Authorization': `Bearer ${getSession()}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+    )
+
+
+
+    if (!res.ok) {
+        return false
+    }
+    else {
+        redirect("dashboard")
+    }
+}
+
+export async function updateCustomer(data : Customer, id: string) {
+
+
+    const res = await fetch(`${PB_URL}/api/collections/customer/records/${id}`,
+        {
+            method: "PATCH",
             cache:"no-store",
             headers: {
                 'Authorization': `Bearer ${getSession()}`,

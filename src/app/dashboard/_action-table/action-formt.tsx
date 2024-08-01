@@ -16,6 +16,8 @@ import {
     FormMessage,
   } from "@/components/ui/form"
 
+import { updateCustomer } from "@/actions/action"
+
 const formSchema = z.object({
     name: z.string().min(2, {
         message: "Name is at least 2 characters.",
@@ -40,6 +42,7 @@ import {
   
 
 export type Account = {
+    id: string,
     email: string,
     address: string,
     name: string
@@ -56,8 +59,8 @@ export default function AccountAction(account: Account) {
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const update = await updateCustomer(values, account.id)
     }
 
     return (
