@@ -16,7 +16,7 @@ export default async function NavBar() {
             
             <Link href={"/"} className="flex text-center items-center">
                 <Image className="mx-2" src={"/js1.png"} width={60} height={60} alt="logo"/>
-                <p className="text-lg font-semibold">JS1/JICS Internet</p>
+                <p className="text-lg font-semibold tex">JS1/JICS Internet</p>
             </Link>
             <ul className="flex gap-[40px] text-m align-middle text-center justify-center items-center">
                 {

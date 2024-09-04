@@ -161,7 +161,7 @@ function ContactForm() {
 function ContactCard() {
     return (
         <>
-        <Card className="">
+        <Card className="min-[390px]:w-[350px]">
             <CardHeader>
                 <CardTitle>Inquire about the services.</CardTitle>
                 <CardDescription>Inquire here</CardDescription>
